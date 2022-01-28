@@ -32,7 +32,10 @@ void EventManagerClose()
     const int arraySize = g_eventManger->_eventsSize;
 
     for(int i = 0; i < arraySize; i++)
+    {
+        free(g_eventManger->_eventsArray[i]->_data); 
         free(g_eventManger->_eventsArray[i]);        
+    }
     free(g_eventManger->_eventsArray);
     free(g_eventManger);
     free(g_eventManagerMutex);
@@ -127,10 +130,9 @@ void EventManagerSetClose(const int close)
     pthread_mutex_lock(g_eventManagerMutex);
     g_eventManger->_close = close;
     pthread_mutex_unlock(g_eventManagerMutex);
-    return 0;
 }
 
-const int EventMangaerGetClose()
+const int EventManagerGetClose()
 {
     pthread_mutex_lock(g_eventManagerMutex);
     int result = g_eventManger->_close;

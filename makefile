@@ -6,6 +6,10 @@ EVENT_TEST = ./tests/eventsTests.c
 EVENT_MANAGER = ./tests/eventsManagerTests.c
 EVENT_PARAMS = -o ./tests/eventsTests
 
+READER = ./src/reader/reader.c
+READER_TEST = ./tests/readerTests.c
+READER_PARAMS = -o ./tests/readerTests
+
 SRC = ./src/main.c 
 PARAMS = 
 LIBS = -lpthread
@@ -19,3 +23,6 @@ eventTest: $(EVENT) $(EVENT_TEST)
 
 eventsManagerTests: $(EVENT) $(EVENT_MANAGER) 
 						$(CC) $(EVENT_PARAMS) $(EVENT) $(EVENT_MANAGER) $(LIBS)
+
+readerTests:  $(READER) $(READER_TEST)
+				$(CC) $(READER_PARAMS) $(EVENT) $(READER) $(READER_TEST) $(LIBS)						

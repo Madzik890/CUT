@@ -12,6 +12,6 @@ Event **EventManagerRead(const EventType type, int *size);//delete all events of
 const unsigned int EventManagerSize();
 
 void EventManagerSetClose(const int close);
-const int EventMangaerGetClose();
+const int EventManagerGetClose();
 
 #endif
