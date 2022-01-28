@@ -10,6 +10,7 @@ struct EventManager
 {
     Event **_eventsArray;
     unsigned int _eventsSize;
+    int _close;
 };
 
 static pthread_mutex_t *g_eventManagerMutex = NULL;
@@ -31,7 +32,10 @@ void EventManagerClose()
     const int arraySize = g_eventManger->_eventsSize;
 
     for(int i = 0; i < arraySize; i++)
+    {
+        free(g_eventManger->_eventsArray[i]->_data); 
         free(g_eventManger->_eventsArray[i]);        
+    }
     free(g_eventManger->_eventsArray);
     free(g_eventManger);
     free(g_eventManagerMutex);
@@ -117,6 +121,21 @@ const unsigned int EventManagerSize()
 {
     pthread_mutex_lock(g_eventManagerMutex);
     unsigned int result = g_eventManger->_eventsSize;
+    pthread_mutex_unlock(g_eventManagerMutex);
+    return result;
+}
+
+void EventManagerSetClose(const int close)
+{
+    pthread_mutex_lock(g_eventManagerMutex);
+    g_eventManger->_close = close;
+    pthread_mutex_unlock(g_eventManagerMutex);
+}
+
+const int EventManagerGetClose()
+{
+    pthread_mutex_lock(g_eventManagerMutex);
+    int result = g_eventManger->_close;
     pthread_mutex_unlock(g_eventManagerMutex);
     return result;
 }
