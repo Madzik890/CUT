@@ -45,8 +45,8 @@ void EventManagerAdd(Event *event)
     pthread_mutex_lock(g_eventManagerMutex);
 
     g_eventManger->_eventsArray = (Event**)realloc(g_eventManger->_eventsArray, ++g_eventManger->_eventsSize * sizeof(Event*));
-    g_eventManger->_eventsArray[g_eventManger->_eventsSize - 1] = event; 
-
+    g_eventManger->_eventsArray[g_eventManger->_eventsSize - 1] = event;
+    
     pthread_mutex_unlock(g_eventManagerMutex);
 }
 
@@ -64,7 +64,7 @@ Event **EventManagerReadAll(int *size)
     for(int i = 0; i < arraySize; i++)
     {
         array[i] = (Event*)malloc(sizeof(Event));     
-        memcpy((void*)array[i], (void*)g_eventManger->_eventsArray[i], sizeof(Event*));
+        memcpy((void*)array[i], (void*)g_eventManger->_eventsArray[i], sizeof(Event));        
     }
 
     assert(array);

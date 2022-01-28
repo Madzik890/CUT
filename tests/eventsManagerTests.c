@@ -9,6 +9,7 @@
 
 static Test eventsManagerAddTest();
 static Test eventsManagerReadAllTest();
+static Test eventsManagerReadAllWithDataTest();
 
 int main()
 {    
@@ -16,6 +17,7 @@ int main()
 
     TEST_EXEC("Events Manager Add", eventsManagerAddTest());
     TEST_EXEC("Events Manager ReadAll", eventsManagerReadAllTest());
+    TEST_EXEC("Events Manager ReadAll with data", eventsManagerReadAllWithDataTest());
 
     EventManagerClose();
     return 0;
@@ -70,4 +72,37 @@ Test eventsManagerReadAllTest()
     free(eventsSecond);
 
     return result;
+}
+
+static Test eventsManagerReadAllWithDataTest()
+{
+    Test result = 0;
+
+    const int testStringSize = 6;
+    char *testString = NULL;
+    testString = (char*)malloc(sizeof(char) * testStringSize);
+    strcpy(testString, "12345\n");
+
+    EventManagerAdd(CreateEvent(PRINTER, (void*)testString, testStringSize));
+
+    const int arrayLastIndex = EventManagerSize() - 1;
+    int arraySize;
+    Event **arrayEvents = EventManagerReadAll(&arraySize);
+    assert(arraySize > 1);
+
+    if(arrayEvents[arrayLastIndex]->_type != PRINTER)
+        return -1;
+
+    if(arrayEvents[arrayLastIndex]->_size != testStringSize)
+        return -2;
+
+    if(strcmp(arrayEvents[arrayLastIndex]->_data, "12345\n") != 0) 
+        return -3;
+
+    for(int i = 0; i < arraySize; i++)
+        free(arrayEvents[i]);
+    free(arrayEvents);
+    free(testString);
+
+    return result;    
 }

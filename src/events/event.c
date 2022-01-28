@@ -8,7 +8,7 @@ Event *CreateEvent(EventType type, void *data, const int size)
     result = calloc(1, sizeof(Event));
     result->_type = type;
     result->_data = data;
-    result->_size = 123;
+    result->_size = size;
 
     return result;
 }
@@ -26,7 +26,7 @@ Event *CopyEvent(Event *event)
 }
 
 void DeleteEvent(Event *event)
-{
+{    
     free(event);
     event->_size = 0;
     event = NULL;

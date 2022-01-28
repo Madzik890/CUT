@@ -8,7 +8,7 @@ typedef enum
     PRINTER = 0x3,
     WATCHDOG = 0x4,
     LOGGER = 0x5,
-    EXIT_PROGRAM = 0x6
+    EXIT_PROGRAM = 0
 } EventType;
 
 typedef struct Event Event;
