@@ -12,6 +12,7 @@ static Test eventsManagerReadAllTest();
 static Test eventsManagerReadAllWithDataTest();
 static Test eventsManagerReadTest();
 static Test eventsManagerSingleReadTest();
+static Test eventsManagerEmptyReadTest();
 
 int main()
 {    
@@ -22,6 +23,7 @@ int main()
     TEST_EXEC("Events Manager ReadAll with data", eventsManagerReadAllWithDataTest());
     TEST_EXEC("Events Manager Read", eventsManagerReadTest());
     TEST_EXEC("Events Manager Single Read", eventsManagerSingleReadTest());
+    TEST_EXEC("Events Manager Empty Read", eventsManagerEmptyReadTest());
 
     EventManagerClose();
     return 0;
@@ -136,7 +138,7 @@ Test eventsManagerSingleReadTest()
 {
     Test result = 0;
 
-    EventManagerAdd(CreateEvent(EXIT_PROGRAM, NULL, 0));
+    EventManagerAdd(CreateEvent(LOGGER, NULL, 0));
 
     const int firstSize = EventManagerSize();
     int arraySize;
@@ -149,6 +151,19 @@ Test eventsManagerSingleReadTest()
     for(int i = 0; i < arraySize; i++)
         free(array[i]);
     free(array);
+
+    return result;
+}
+
+Test eventsManagerEmptyReadTest()
+{
+    Test result = 0;
+    
+    int arraySize;
+    Event **array = EventManagerRead(WATCHDOG, &arraySize);
+    const int secondSize = EventManagerSize();
+    if(arraySize != 0)
+        return -1;
 
     return result;
 }
