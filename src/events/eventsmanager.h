@@ -1,20 +1,14 @@
 #ifndef EVENTS_MANAGER_H
 #define EVENTS_MANAGER_H
 
-struct Event;
-typedef struct Event Event;
+#include "event.h"
 
 void EventManagerInit();
 void EventManagerClose();
 
 void EventManagerAdd(Event *event);
-Event **EventManagerReadAll(int *size);
-const int EventManagerSize();
-
-Event **EventManagerReadLogger(int *size);
-Event **EventManagerReadAnalyzer(int *size);
-Event **EventManagerReadPrinter(int *size);
-Event **EventManagerReadWatchDog(int *size);
-Event **EventManagerLogger(int *size);
+Event **EventManagerReadAll(int *size);//not delete any events
+Event **EventManagerRead(const EventType type, int *size);//delete all events of type
+const unsigned int EventManagerSize();
 
 #endif

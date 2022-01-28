@@ -29,13 +29,10 @@ void EventManagerClose()
     assert(g_eventManagerMutex);
 
     const int arraySize = g_eventManger->_eventsSize;
+
     for(int i = 0; i < arraySize; i++)
-    {     
-        free(g_eventManger->_eventsArray[i]);    
-    }
+        free(g_eventManger->_eventsArray[i]);        
     free(g_eventManger->_eventsArray);
-
-
     free(g_eventManger);
     free(g_eventManagerMutex);
 }
@@ -73,10 +70,53 @@ Event **EventManagerReadAll(int *size)
     return array;
 }
 
-const int EventManagerSize()
+Event **EventManagerRead(const EventType type, int *size)
+{
+    Event **array = NULL;
+    int arraySize = 0;
+
+    pthread_mutex_lock(g_eventManagerMutex);
+    if(g_eventManger->_eventsSize > 0)
+    {    
+        for(int i = 0; i < g_eventManger->_eventsSize; i++)
+        {
+            if(g_eventManger->_eventsArray[i]->_type == type)
+            {
+                array = (Event**)realloc(array, sizeof(Event*) * ++arraySize);
+                array[arraySize - 1] = (Event*)malloc(sizeof(Event));
+                memcpy((void*)array[arraySize - 1], (void*)g_eventManger->_eventsArray[i], sizeof(Event));
+            }
+        }
+
+        int index = 0;
+        Event **copyArray = NULL;
+        int copyArraySize = g_eventManger->_eventsSize - arraySize;
+        copyArray = (Event**)malloc(sizeof(Event*) * copyArraySize);
+        for(int i = 0; i < g_eventManger->_eventsSize; i++)
+        {
+            if(g_eventManger->_eventsArray[i]->_type != type)
+            {
+                copyArray[index] = (Event*)malloc(sizeof(Event));
+                memcpy((void*)copyArray[index++], (void*)g_eventManger->_eventsArray[i], sizeof(Event));        
+            }
+            free(g_eventManger->_eventsArray[i]);
+        }
+
+        free(g_eventManger->_eventsArray);
+
+        g_eventManger->_eventsSize = copyArraySize;
+        g_eventManger->_eventsArray = copyArray;
+    }
+
+    pthread_mutex_unlock(g_eventManagerMutex);
+    *size = arraySize;
+    return array;
+}
+
+const unsigned int EventManagerSize()
 {
     pthread_mutex_lock(g_eventManagerMutex);
-    int result = g_eventManger->_eventsSize;
+    unsigned int result = g_eventManger->_eventsSize;
     pthread_mutex_unlock(g_eventManagerMutex);
     return result;
 }

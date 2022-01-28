@@ -48,6 +48,24 @@ static Test eventTest()
 }
 
 Test eventCopyTest()
-{
-    return 0;
+{   
+    Test result = 0;
+
+    char *testString = (char*)malloc(sizeof(char) * TEST_STRING_SIZE);
+    assert(testString);
+    strcpy(testString, EXAMPLE_STRING);
+
+    Event *event = CreateEvent(READER, testString, TEST_STRING_SIZE);
+    Event *eventCopy = CopyEvent(event);
+
+    if(event->_type != eventCopy->_type)    
+        return -1;    
+
+    if(event->_size != eventCopy->_size)    
+        return -2;    
+
+    if(strcmp(event->_data, eventCopy->_data) != 0)    
+        return -3;    
+
+    return result;
 }
