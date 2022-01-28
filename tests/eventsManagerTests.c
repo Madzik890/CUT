@@ -41,27 +41,33 @@ Test eventsManagerAddTest()
 Test eventsManagerReadAllTest()
 {
     Test result = 0;
-    int size = 0;
 
     EventManagerAdd(CreateEvent(PRINTER, NULL, 0));
-    if(EventManagerSize() != 1)    
-        result = -1;
-
     EventManagerAdd(CreateEvent(READER, NULL, 0));
-    if(EventManagerSize() != 2)    
-        result = -1;
 
-    Event **events = EventManagerReadAll(&size);
-    assert(events);
-    printf("Size: %d \n", size);
-    for(int i = 0; i < size; i++)
+    int sizeFirst = 0, sizeSecond = 0;
+    Event **eventsFirst = EventManagerReadAll(&sizeFirst);
+    assert(eventsFirst);
+
+    Event **eventsSecond = EventManagerReadAll(&sizeSecond);
+    assert(eventsSecond);
+    
+    assert(sizeFirst == sizeSecond);
+
+    for(int i = 0; i < sizeFirst; i++)
     {
-        assert(events[i]);
-        printf("%d \n", events[i]->_type);
-        free(events[i]);
+        assert(eventsFirst[i]);
+        assert(eventsSecond[i]);
+
+        if(eventsFirst[i]->_type != eventsSecond[i]->_type)                   
+            result = -2;        
+        
+        free(eventsFirst[i]);
+        free(eventsSecond[i]);
     }
 
-    free(events);
+    free(eventsFirst);
+    free(eventsSecond);
 
     return result;
 }

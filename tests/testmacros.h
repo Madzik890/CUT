@@ -5,7 +5,7 @@ struct int8_t;
 
 typedef int8_t Test;
 #define TEST_RESULT(x)                                  \
-        if(x != 0){ printf("Test error!");              \
+        if(x != 0){ printf("Test error!\n");            \
             return -1;                                  \
         }
 
