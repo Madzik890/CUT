@@ -1,6 +1,8 @@
 #ifndef TEST_MACROS_H
 #define TEST_MACROS_H
 
+#include <stdint.h>
+
 struct int8_t;
 typedef int8_t Test;
 

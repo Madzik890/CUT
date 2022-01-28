@@ -67,5 +67,9 @@ Test eventCopyTest()
     if(strcmp(event->_data, eventCopy->_data) != 0)    
         return -3;    
 
+    DeleteEvent(event);
+    DeleteEvent(eventCopy);
+    free(testString);
+
     return result;
 }
