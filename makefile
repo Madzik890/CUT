@@ -16,15 +16,19 @@ ANALYZER_PARAMS = -o ./tests/analyzerTests
 
 PRINTER = ./src/printer/printer.c
 
+LOGGER = ./src/logger/logger.c
+
 THREAD = ./src/threads/threads.c
+
+WATCHDOG = ./src/watchdog/watchdog.c
 
 SRC = ./src/main.c 
 PARAMS = 
 LIBS = -lpthread
 
 
-all: $(EVENT) $(READER) $(ANALYZER) $(PRINTER) $(THREAD) $(SRC)
-	 	$(CC) $(APP) $(EVENT) $(READER) $(ANALYZER) $(PRINTER) $(THREAD) $(SRC) $(LIBS)
+all: $(EVENT) $(READER) $(ANALYZER) $(PRINTER) $(WATCHDOG) $(LOGGER) $(THREAD) $(SRC)
+	 	$(CC) $(APP) $(EVENT) $(READER) $(ANALYZER) $(PRINTER) $(THREAD) $(WATCHDOG) $(LOGGER) $(SRC) $(LIBS)
 
 eventTest: $(EVENT) $(EVENT_TEST) 
 				$(CC) $(EVENT_PARAMS) $(EVENT) $(EVENT_TEST) $(LIBS)

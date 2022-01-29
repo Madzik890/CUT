@@ -6,9 +6,11 @@
 #include "../events/event.h"
 #include "../events/eventsmanager.h"
 #include "../analyzer/cpu.h"
+#include "../logger/logger.h"
 
 void PrintEvents(Event **events, const int size)
 {
+    system("clear");
     system("clear");
     for(int i = 0; i < size; i++)
     {
@@ -23,6 +25,8 @@ void PrintEvents(Event **events, const int size)
         free(events[i]);
     }
     free(events);
+
+    LoggerWrite("Printer: printed\n");
 }
 
 void *PrinterLoop()
@@ -32,8 +36,9 @@ void *PrinterLoop()
         int eventsSize;
         Event **events = EventManagerRead(ANALYZER, &eventsSize);
         if(eventsSize > 0)
-            PrintEvents(events, eventsSize);
+            PrintEvents(events, eventsSize);        
 
+        EventManagerAdd(CreateEvent(WATCHDOG, NULL, PRINTER));    
         sleep(PRINTER_INTERVAL);
     }
 }

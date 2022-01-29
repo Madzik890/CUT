@@ -56,3 +56,4 @@ cut
 eventsTests
 readerTests
 analyzerTests
+logger

@@ -7,9 +7,11 @@
 #include "../events/event.h"
 #include "../events/eventsmanager.h"
 #include "cpu.h"
+#include "../logger/logger.h"
 
 extern void AnalizeEvent(Event **events, const int size)
 {
+
     for(int i = 0; i < size; i++)
     {
         assert(events[i]->_type == READER);
@@ -19,6 +21,8 @@ extern void AnalizeEvent(Event **events, const int size)
     }
 
     free(events);
+
+    LoggerWrite("Analyzer: calculate cpu usages\n");
 }
 
 extern void AnalizeBuffer(const char *buffer, const int size)
@@ -127,6 +131,7 @@ void *AnalyzerLoop()
         if(eventsSize > 0)
             AnalizeEvent(events, eventsSize);
 
+        EventManagerAdd(CreateEvent(WATCHDOG, NULL, ANALYZER));    
         sleep(ANALYZER_INTERVAL);
     }
 }
