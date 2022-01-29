@@ -23,12 +23,12 @@ THREAD = ./src/threads/threads.c
 WATCHDOG = ./src/watchdog/watchdog.c
 
 SRC = ./src/main.c 
-PARAMS = 
+PARAMS = -D ENABLE_LOGS
 LIBS = -lpthread
 
 
 all: $(EVENT) $(READER) $(ANALYZER) $(PRINTER) $(WATCHDOG) $(LOGGER) $(THREAD) $(SRC)
-	 	$(CC) $(APP) $(EVENT) $(READER) $(ANALYZER) $(PRINTER) $(THREAD) $(WATCHDOG) $(LOGGER) $(SRC) $(LIBS)
+	 	$(CC) $(PARAMS) $(APP) $(EVENT) $(READER) $(ANALYZER) $(PRINTER) $(THREAD) $(WATCHDOG) $(LOGGER) $(SRC) $(LIBS)
 
 eventTest: $(EVENT) $(EVENT_TEST) 
 				$(CC) $(EVENT_PARAMS) $(EVENT) $(EVENT_TEST) $(LIBS)
@@ -36,7 +36,7 @@ eventTest: $(EVENT) $(EVENT_TEST)
 eventsManagerTests: $(EVENT) $(EVENT_MANAGER) 
 						$(CC) $(EVENT_PARAMS) $(EVENT) $(EVENT_MANAGER) $(LIBS)
 
-readerTests:  $(READER) $(READER_TEST)
+readerTests:  $(READER) $(READER_TEST) 
 				$(CC) $(READER_PARAMS) $(EVENT) $(READER) $(READER_TEST) $(LIBS)						
 
 analyzerTests: $(ANALYZER) $(ANALYZER_TEST)

@@ -37,8 +37,10 @@ void *ReaderLoop()
         {
             EventManagerAdd(CreateEvent(READER, (void*)buffer, size));
 
-        EventManagerAdd(CreateEvent(WATCHDOG, NULL, ANALYZER));    
-            LoggerWrite("Reader: read buffer\n");
+            EventManagerAdd(CreateEvent(WATCHDOG, NULL, ANALYZER));    
+            #ifdef ENABLE_LOGS
+                LoggerWrite("Reader: read buffer\n");
+            #endif
         }
     }
 }

@@ -22,7 +22,9 @@ extern void AnalizeEvent(Event **events, const int size)
 
     free(events);
 
-    LoggerWrite("Analyzer: calculate cpu usages\n");
+    #ifdef ENABLE_LOGS
+        LoggerWrite("Analyzer: calculate cpu usages\n");
+    #endif
 }
 
 extern void AnalizeBuffer(const char *buffer, const int size)
