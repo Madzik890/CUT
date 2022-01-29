@@ -43,4 +43,6 @@ void *LoggerLoop()
 
         sleep(LOGGER_INTERVAL);
     }
+
+    return 0;
 }

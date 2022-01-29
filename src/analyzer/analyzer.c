@@ -29,6 +29,7 @@ extern void AnalizeEvent(Event **events, const int size)
 
 extern void AnalizeBuffer(const char *buffer, const int size)
 {
+    (void)size;
     char * line = strtok((char*)buffer, "\n");
     line = strtok(NULL, "\n");
 
@@ -136,4 +137,6 @@ void *AnalyzerLoop()
         EventManagerAdd(CreateEvent(WATCHDOG, NULL, ANALYZER));    
         sleep(ANALYZER_INTERVAL);
     }
+
+    return 0;
 }

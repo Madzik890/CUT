@@ -14,7 +14,7 @@
 volatile sig_atomic_t done = 0;
 void term(int signum);
 
-int main(int argc, char **argv)
+int main()
 {
     EventManagerInit();
     EventManagerSetClose(0);
@@ -23,7 +23,6 @@ int main(int argc, char **argv)
     memset(&action, 0, sizeof(struct sigaction));
     action.sa_handler = term;
     sigaction(SIGTERM, &action, NULL);
-    int loop = 0;
 
     START_THREAD(ReaderLoop);
     START_THREAD(AnalyzerLoop);
@@ -47,5 +46,6 @@ int main(int argc, char **argv)
 
 void term(int signum)
 {
+    (void)signum;
     done = 1;
 }

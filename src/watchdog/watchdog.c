@@ -24,4 +24,6 @@ void *WatchdogLoop()
 
         sleep(WATCHDOG_INTERVAL);
     }
+
+    return 0;
 }

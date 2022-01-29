@@ -9,9 +9,9 @@ void EventManagerClose();
 void EventManagerAdd(Event *event);
 Event **EventManagerReadAll(int *size);//not delete any events
 Event **EventManagerRead(const EventType type, int *size);//delete all events of type
-const unsigned int EventManagerSize();
+unsigned int EventManagerSize();
 
 void EventManagerSetClose(const int close);
-const int EventManagerGetClose();
+int EventManagerGetClose();
 
 #endif

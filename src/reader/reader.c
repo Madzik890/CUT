@@ -43,4 +43,5 @@ void *ReaderLoop()
             #endif
         }
     }
+    return 0;
 }

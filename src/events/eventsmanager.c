@@ -92,7 +92,7 @@ Event **EventManagerRead(const EventType type, int *size)
     pthread_mutex_lock(g_eventManagerMutex);
     if(g_eventManger->_eventsSize > 0)
     {    
-        for(int i = 0; i < g_eventManger->_eventsSize; i++)
+        for(int i = 0; i < (int)g_eventManger->_eventsSize; i++)
         {
             if(g_eventManger->_eventsArray[i]->_type == type)
             {
@@ -106,7 +106,7 @@ Event **EventManagerRead(const EventType type, int *size)
         Event **copyArray = NULL;
         int copyArraySize = g_eventManger->_eventsSize - arraySize;
         copyArray = (Event**)malloc(sizeof(Event*) * copyArraySize);
-        for(int i = 0; i < g_eventManger->_eventsSize; i++)
+        for(int i = 0; i < (int)g_eventManger->_eventsSize; i++)
         {
             if(g_eventManger->_eventsArray[i]->_type != type)
             {
@@ -127,7 +127,7 @@ Event **EventManagerRead(const EventType type, int *size)
     return array;
 }
 
-const unsigned int EventManagerSize()
+unsigned int EventManagerSize()
 {
     pthread_mutex_lock(g_eventManagerMutex);
     unsigned int result = g_eventManger->_eventsSize;
@@ -142,7 +142,7 @@ void EventManagerSetClose(const int close)
     pthread_mutex_unlock(g_eventManagerMutex);
 }
 
-const int EventManagerGetClose()
+int EventManagerGetClose()
 {
     pthread_mutex_lock(g_eventManagerMutex);
     int result = g_eventManger->_close;

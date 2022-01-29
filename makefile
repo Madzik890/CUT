@@ -23,7 +23,7 @@ THREAD = ./src/threads/threads.c
 WATCHDOG = ./src/watchdog/watchdog.c
 
 SRC = ./src/main.c 
-PARAMS = -D ENABLE_LOGS
+PARAMS = -D ENABLE_LOGS -Wall -Wextra
 LIBS = -lpthread
 
 

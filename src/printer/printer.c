@@ -43,4 +43,6 @@ void *PrinterLoop()
         EventManagerAdd(CreateEvent(WATCHDOG, NULL, PRINTER));    
         sleep(PRINTER_INTERVAL);
     }
+    
+    return 0;
 }
