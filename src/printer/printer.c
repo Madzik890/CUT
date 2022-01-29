@@ -26,7 +26,9 @@ void PrintEvents(Event **events, const int size)
     }
     free(events);
 
-    LoggerWrite("Printer: printed\n");
+    #ifdef ENABLE_LOGS
+        LoggerWrite("Printer: printed\n");
+    #endif
 }
 
 void *PrinterLoop()
