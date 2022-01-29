@@ -36,6 +36,8 @@ void *ReaderLoop()
         if(buffer)
         {
             EventManagerAdd(CreateEvent(READER, (void*)buffer, size));
+
+        EventManagerAdd(CreateEvent(WATCHDOG, NULL, ANALYZER));    
             LoggerWrite("Reader: read buffer\n");
         }
     }

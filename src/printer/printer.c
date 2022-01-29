@@ -11,6 +11,7 @@
 void PrintEvents(Event **events, const int size)
 {
     system("clear");
+    system("clear");
     for(int i = 0; i < size; i++)
     {
         assert(events[i]->_type == ANALYZER);
@@ -35,8 +36,9 @@ void *PrinterLoop()
         int eventsSize;
         Event **events = EventManagerRead(ANALYZER, &eventsSize);
         if(eventsSize > 0)
-            PrintEvents(events, eventsSize);
+            PrintEvents(events, eventsSize);        
 
+        EventManagerAdd(CreateEvent(WATCHDOG, NULL, PRINTER));    
         sleep(PRINTER_INTERVAL);
     }
 }

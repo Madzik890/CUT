@@ -20,13 +20,15 @@ LOGGER = ./src/logger/logger.c
 
 THREAD = ./src/threads/threads.c
 
+WATCHDOG = ./src/watchdog/watchdog.c
+
 SRC = ./src/main.c 
 PARAMS = 
 LIBS = -lpthread
 
 
-all: $(EVENT) $(READER) $(ANALYZER) $(PRINTER) $(LOGGER) $(THREAD) $(SRC)
-	 	$(CC) $(APP) $(EVENT) $(READER) $(ANALYZER) $(PRINTER) $(LOGGER) $(THREAD) $(SRC) $(LIBS)
+all: $(EVENT) $(READER) $(ANALYZER) $(PRINTER) $(WATCHDOG) $(THREAD) $(SRC)
+	 	$(CC) $(APP) $(EVENT) $(READER) $(ANALYZER) $(PRINTER) $(THREAD) $(WATCHDOG) $(SRC) $(LIBS)
 
 eventTest: $(EVENT) $(EVENT_TEST) 
 				$(CC) $(EVENT_PARAMS) $(EVENT) $(EVENT_TEST) $(LIBS)
