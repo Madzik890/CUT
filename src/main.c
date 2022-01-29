@@ -7,6 +7,7 @@
 #include "reader/reader.h"
 #include "analyzer/analyzer.h"
 #include "printer/printer.h"
+#include "watchdog/watchdog.h"
 #include "threads/threads.h"
 
 volatile sig_atomic_t done = 0;
@@ -26,8 +27,9 @@ int main(int argc, char **argv)
     START_THREAD(ReaderLoop);
     START_THREAD(AnalyzerLoop);
     START_THREAD(PrinterLoop);
+    START_THREAD(WatchdogLoop);
 
-    while (!done)
+    while (!done && !EventManagerGetClose())
     {
         int t = sleep(3);
         while (t > 0)         

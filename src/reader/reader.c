@@ -33,5 +33,7 @@ void *ReaderLoop()
         char *buffer = ReadProcStat(&size);
         if(buffer)
             EventManagerAdd(CreateEvent(READER, (void*)buffer, size));
+
+        EventManagerAdd(CreateEvent(WATCHDOG, NULL, ANALYZER));    
     }
 }

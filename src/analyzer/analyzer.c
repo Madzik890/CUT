@@ -127,6 +127,7 @@ void *AnalyzerLoop()
         if(eventsSize > 0)
             AnalizeEvent(events, eventsSize);
 
+        EventManagerAdd(CreateEvent(WATCHDOG, NULL, ANALYZER));    
         sleep(ANALYZER_INTERVAL);
     }
 }
