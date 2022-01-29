@@ -42,7 +42,6 @@ extern void AnalizeBuffer(const char *buffer, const int size)
             cpu._index = cpuArraySize;
             cpu._usage = cpuUsage;
             cpuArray[cpuArraySize - 1] = cpu;
-            //assert(cpuArray[cpuArraySize - 1]);
         }
         else
             goto exit;   

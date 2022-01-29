@@ -14,14 +14,20 @@ struct EventManager
 };
 
 static pthread_mutex_t *g_eventManagerMutex = NULL;
+static pthread_mutexattr_t *g_eventManagerAttr = NULL;
 static EventManager *g_eventManger = NULL;
 
 void EventManagerInit()
 {
     g_eventManger = calloc(1, sizeof(EventManager));
     g_eventManagerMutex = malloc(sizeof(pthread_mutex_t));
+    g_eventManagerAttr = malloc(sizeof(pthread_mutexattr_t));
     assert(g_eventManger);
     assert(g_eventManagerMutex);
+    assert(g_eventManagerAttr);
+
+    pthread_mutexattr_init(g_eventManagerAttr);
+    pthread_mutex_init(g_eventManagerMutex, g_eventManagerAttr);
 }
 
 void EventManagerClose()
@@ -38,6 +44,8 @@ void EventManagerClose()
     }
     free(g_eventManger->_eventsArray);
     free(g_eventManger);
+
+    pthread_mutex_destroy(g_eventManagerMutex);	
     free(g_eventManagerMutex);
 }
 

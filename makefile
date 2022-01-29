@@ -14,13 +14,17 @@ ANALYZER = ./src/analyzer/cpu.c ./src/analyzer/analyzer.c
 ANALYZER_TEST = ./tests/analyzerTests.c
 ANALYZER_PARAMS = -o ./tests/analyzerTests
 
+PRINTER = ./src/printer/printer.c
+
+THREAD = ./src/threads/threads.c
+
 SRC = ./src/main.c 
 PARAMS = 
 LIBS = -lpthread
 
 
-all: $(EVENT) $(SRC)
-	 	$(CC) $(APP) $(EVENT) $(SRC) $(LIBS)
+all: $(EVENT) $(READER) $(ANALYZER) $(PRINTER) $(THREAD) $(SRC)
+	 	$(CC) $(APP) $(EVENT) $(READER) $(ANALYZER) $(PRINTER) $(THREAD) $(SRC) $(LIBS)
 
 eventTest: $(EVENT) $(EVENT_TEST) 
 				$(CC) $(EVENT_PARAMS) $(EVENT) $(EVENT_TEST) $(LIBS)
