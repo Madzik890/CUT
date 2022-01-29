@@ -6,6 +6,7 @@
 #include "../events/event.h"
 #include "../events/eventsmanager.h"
 #include "../analyzer/cpu.h"
+#include "../logger/logger.h"
 
 void PrintEvents(Event **events, const int size)
 {
@@ -23,6 +24,8 @@ void PrintEvents(Event **events, const int size)
         free(events[i]);
     }
     free(events);
+
+    LoggerWrite("Printer: printed\n");
 }
 
 void *PrinterLoop()

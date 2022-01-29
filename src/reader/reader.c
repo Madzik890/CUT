@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "../events/eventsmanager.h"
+#include "../logger/logger.h"
 
 char *ReadProcStat(int *size)
 {
@@ -18,6 +19,7 @@ char *ReadProcStat(int *size)
         char *string = (char*)malloc(sizeof(char) * bufferSize + 1);
         strcpy(string, tempBuffer);
         *size = bufferSize;
+
         return string;
     }
     else   
@@ -32,6 +34,9 @@ void *ReaderLoop()
         int size;
         char *buffer = ReadProcStat(&size);
         if(buffer)
+        {
             EventManagerAdd(CreateEvent(READER, (void*)buffer, size));
+            LoggerWrite("Reader: read buffer\n");
+        }
     }
 }
