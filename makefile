@@ -10,6 +10,10 @@ READER = ./src/reader/reader.c
 READER_TEST = ./tests/readerTests.c
 READER_PARAMS = -o ./tests/readerTests
 
+ANALYZER = ./src/analyzer/cpu.c ./src/analyzer/analyzer.c
+ANALYZER_TEST = ./tests/analyzerTests.c
+ANALYZER_PARAMS = -o ./tests/analyzerTests
+
 SRC = ./src/main.c 
 PARAMS = 
 LIBS = -lpthread
@@ -26,3 +30,6 @@ eventsManagerTests: $(EVENT) $(EVENT_MANAGER)
 
 readerTests:  $(READER) $(READER_TEST)
 				$(CC) $(READER_PARAMS) $(EVENT) $(READER) $(READER_TEST) $(LIBS)						
+
+analyzerTests: $(ANALYZER) $(ANALYZER_TEST)
+					$(CC) $(ANALYZER_PARAMS) $(EVENT) $(READER) $(ANALYZER) $(ANALYZER_TEST) $(LIBS)

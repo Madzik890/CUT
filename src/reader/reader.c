@@ -32,6 +32,6 @@ void *ReaderLoop()
         int size;
         char *buffer = ReadProcStat(&size);
         if(buffer)
-            EventManagerAdd(CreateEvent(READER, buffer, size));
+            EventManagerAdd(CreateEvent(READER, (void*)buffer, size));
     }
 }
