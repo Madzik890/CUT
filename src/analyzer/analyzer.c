@@ -120,7 +120,7 @@ void AnalizeLine(const char *buffer, const int size, double *usage)
         }
     }
 
-    double cpuUsage = (double)(idle * 1000.f) / (double)(user + nice + system + idle + iowait + irq + softirq);
+    double cpuUsage = (double)(idle * 100.f) / (double)(user + nice + system + idle + iowait + irq + softirq);
     *usage = cpuUsage;
 }
 
