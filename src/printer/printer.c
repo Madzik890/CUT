@@ -1,11 +1,15 @@
 #include "printer.h"
 #include <assert.h>
+#include <stdlib.h>
+#include <stdio.h>
+#include <unistd.h>
 #include "../events/event.h"
 #include "../events/eventsmanager.h"
 #include "../analyzer/cpu.h"
 
 void PrintEvents(Event **events, const int size)
 {
+    system("clear");
     for(int i = 0; i < size; i++)
     {
         assert(events[i]->_type == ANALYZER);
@@ -28,7 +32,7 @@ void *PrinterLoop()
         int eventsSize;
         Event **events = EventManagerRead(ANALYZER, &eventsSize);
         if(eventsSize > 0)
-            AnalizeEvent(events, eventsSize);
+            PrintEvents(events, eventsSize);
 
         sleep(PRINTER_INTERVAL);
     }
