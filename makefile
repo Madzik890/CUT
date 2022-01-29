@@ -14,6 +14,8 @@ ANALYZER = ./src/analyzer/cpu.c ./src/analyzer/analyzer.c
 ANALYZER_TEST = ./tests/analyzerTests.c
 ANALYZER_PARAMS = -o ./tests/analyzerTests
 
+PRINTER = ./src/printer/printer.c
+
 SRC = ./src/main.c 
 PARAMS = 
 LIBS = -lpthread
