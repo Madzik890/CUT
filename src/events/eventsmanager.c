@@ -46,7 +46,9 @@ void EventManagerClose()
     free(g_eventManger);
 
     pthread_mutex_destroy(g_eventManagerMutex);	
+    pthread_mutexattr_destroy(g_eventManagerAttr);
     free(g_eventManagerMutex);
+    free(g_eventManagerAttr);
 }
 
 void EventManagerAdd(Event *event)
